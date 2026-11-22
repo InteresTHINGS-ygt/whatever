@@ -1,752 +1,854 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ne Kadar Yiğit Doğan'sın? (22 Soruluk Benzerlik Testi)</title>
-  <style>
-    :root {
-      --bg: #0b1116;
-      --surface: #121c24;
-      --surface-alt: #182631;
-      --border: #253847;
-      --text: #e6f0f5;
-      --text-muted: #8fa6b5;
-      --primary: #00d4b6;
-      --primary-hover: #00f0ce;
-      --accent: #ff9f1c;
-      --danger: #ff5964;
-      --success: #2ec4b6;
-      --radius: 14px;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ne Kadar Yiğit Doğan'sın?</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    }
+  :root {
+    --bg: #0f172a;
+    --card: #1e293b;
+    --card-hover: #263348;
+    --text: #f8fafc;
+    --text-muted: #94a3b8;
+    --primary: #38bdf8;
+    --primary-glow: rgba(56, 189, 248, 0.25);
+    --accent: #f59e0b;
+    --border: #334155;
+    --success: #10b981;
+    --danger: #ef4444;
+  }
 
-    body {
-      background-color: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      padding: 24px 16px;
-    }
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 
-    .container {
-      width: 100%;
-      max-width: 780px;
-    }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem;
+  }
 
-    header {
-      text-align: center;
-      margin-bottom: 28px;
-    }
+  .container {
+    width: 100%;
+    max-width: 760px;
+  }
 
-    header h1 {
-      font-size: 2rem;
-      font-weight: 800;
-      background: linear-gradient(135deg, var(--primary), #38bdf8, var(--accent));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 8px;
-    }
+  header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
 
-    header p {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-    }
+  h1 {
+    font-size: 2.25rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+  }
 
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 28px;
-      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
-    }
+  .subtitle {
+    color: var(--text-muted);
+    font-size: 1rem;
+  }
 
-    .warning-box {
-      background: rgba(255, 159, 28, 0.1);
-      border-left: 4px solid var(--accent);
-      padding: 18px 20px;
-      border-radius: 10px;
-      margin-bottom: 24px;
-    }
+  .card {
+    background-color: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.4);
+    margin-bottom: 1.5rem;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
 
-    .warning-box h3 {
-      color: var(--accent);
-      font-size: 1.05rem;
-      margin-bottom: 6px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+  .honesty-alert {
+    background: rgba(245, 158, 11, 0.1);
+    border: 1px solid rgba(245, 158, 11, 0.4);
+    border-left: 5px solid var(--accent);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.75rem;
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
 
-    .warning-box p {
-      font-size: 0.92rem;
-      color: #f3e5d0;
-    }
+  .honesty-icon {
+    font-size: 1.5rem;
+    line-height: 1.2;
+  }
 
-    .mode-selector {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-bottom: 24px;
-    }
+  .honesty-text h3 {
+    color: #fbbf24;
+    font-size: 1.05rem;
+    margin-bottom: 0.35rem;
+  }
 
-    .mode-btn {
-      background: var(--surface-alt);
-      border: 2px solid var(--border);
-      color: var(--text);
-      padding: 14px;
-      border-radius: 10px;
-      cursor: pointer;
-      text-align: left;
-      transition: all 0.2s ease;
-    }
+  .honesty-text p {
+    color: #e2e8f0;
+    font-size: 0.92rem;
+  }
 
-    .mode-btn.active {
-      border-color: var(--primary);
-      background: rgba(0, 212, 182, 0.08);
-    }
+  .mode-switch {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
 
-    .mode-btn strong {
-      display: block;
-      font-size: 0.95rem;
-      margin-bottom: 4px;
-    }
+  .mode-btn {
+    flex: 1;
+    padding: 0.9rem 1rem;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+  }
 
-    .mode-btn span {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-    }
+  .mode-btn.active {
+    background: rgba(56, 189, 248, 0.12);
+    border-color: var(--primary);
+    color: var(--primary);
+  }
 
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      background: var(--primary);
-      color: #061217;
-      font-weight: 700;
-      font-size: 1rem;
-      padding: 14px 28px;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      width: 100%;
-    }
+  .btn-primary {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    background: linear-gradient(135deg, #0284c7, #38bdf8);
+    color: #0f172a;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 4px 15px var(--primary-glow);
+  }
 
-    .btn:hover:not(:disabled) {
-      background: var(--primary-hover);
-      transform: translateY(-1px);
-    }
+  .btn-primary:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(56, 189, 248, 0.4);
+  }
 
-    .btn:disabled {
-      opacity: 0.4;
-      cursor: not-allowed;
-    }
+  .btn-primary:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    transform: none;
+  }
 
-    .btn-secondary {
-      background: var(--surface-alt);
-      color: var(--text);
-      border: 1px solid var(--border);
-    }
+  .btn-secondary {
+    padding: 0.85rem 1.25rem;
+    background: var(--bg);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
 
-    .btn-secondary:hover:not(:disabled) {
-      background: #223544;
-    }
+  .btn-secondary:hover:not(:disabled) {
+    border-color: var(--text-muted);
+  }
 
-    /* Progress Bar */
-    .progress-wrapper {
-      margin-bottom: 24px;
-    }
+  .btn-secondary:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
 
-    .progress-info {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      margin-bottom: 8px;
-    }
+  .progress-container {
+    margin-bottom: 1.75rem;
+  }
 
-    .progress-bar {
-      width: 100%;
-      height: 8px;
-      background: var(--surface-alt);
-      border-radius: 99px;
-      overflow: hidden;
-    }
+  .progress-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
 
-    .progress-fill {
-      height: 100%;
-      background: linear-gradient(90deg, var(--primary), #38bdf8);
-      width: 0%;
-      transition: width 0.3s ease;
-    }
+  .progress-bar {
+    height: 8px;
+    background: var(--bg);
+    border-radius: 999px;
+    overflow: hidden;
+  }
 
-    /* Question Items */
-    .question-block {
-      margin-bottom: 24px;
-      padding-bottom: 22px;
-      border-bottom: 1px solid var(--border);
-    }
+  .progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #38bdf8, #818cf8);
+    transition: width 0.3s ease;
+  }
 
-    .question-block:last-child {
-      border-bottom: none;
-      margin-bottom: 0;
-      padding-bottom: 0;
-    }
+  .question-item {
+    margin-bottom: 2rem;
+    padding-bottom: 1.75rem;
+    border-bottom: 1px solid var(--border);
+  }
 
-    .q-header {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 10px;
-    }
+  .question-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
 
-    .q-num {
-      background: rgba(0, 212, 182, 0.15);
-      color: var(--primary);
-      font-weight: 700;
-      font-size: 0.8rem;
-      padding: 3px 10px;
-      border-radius: 99px;
-    }
+  .q-badge {
+    display: inline-block;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--primary);
+    background: rgba(56, 189, 248, 0.12);
+    padding: 0.2rem 0.65rem;
+    border-radius: 999px;
+    margin-bottom: 0.65rem;
+  }
 
-    .q-text {
-      font-size: 1.12rem;
-      font-weight: 600;
-      margin-bottom: 16px;
-      color: #ffffff;
-    }
+  .q-title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 1.25rem;
+    color: var(--text);
+  }
 
-    .likert-options {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 8px;
-    }
+  .likert-scale {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.5rem;
+  }
 
-    @media (max-width: 640px) {
-      .likert-options {
-        grid-template-columns: 1fr;
-      }
-      .mode-selector {
-        grid-template-columns: 1fr;
-      }
+  @media (max-width: 640px) {
+    .likert-scale {
+      grid-template-columns: 1fr;
     }
-
-    .likert-option {
-      background: var(--surface-alt);
-      border: 1.5px solid var(--border);
-      border-radius: 10px;
-      padding: 12px 8px;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.18s ease;
-      font-size: 0.84rem;
-      font-weight: 500;
-      color: var(--text-muted);
-      display: flex;
+    .mode-switch {
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
     }
+  }
 
-    .likert-option:hover {
-      border-color: #3d5a70;
-      color: var(--text);
-    }
+  .likert-btn {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.85rem 0.5rem;
+    color: var(--text-muted);
+    font-size: 0.82rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 0.4rem;
+  }
 
-    .likert-option.selected {
-      background: rgba(0, 212, 182, 0.14);
-      border-color: var(--primary);
-      color: #ffffff;
-      font-weight: 700;
-    }
+  .likert-btn:hover {
+    border-color: #64748b;
+    color: var(--text);
+  }
 
-    .dot {
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      border: 2px solid var(--text-muted);
-      display: inline-block;
-    }
+  .likert-btn.selected {
+    background: rgba(56, 189, 248, 0.16);
+    border-color: var(--primary);
+    color: #fff;
+    font-weight: 700;
+    box-shadow: 0 0 0 1px var(--primary);
+  }
 
-    .likert-option.selected .dot {
-      border-color: var(--primary);
-      background: var(--primary);
-      box-shadow: 0 0 8px var(--primary);
-    }
+  .radio-circle {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid var(--text-muted);
+    display: inline-block;
+    position: relative;
+  }
 
-    .nav-actions {
-      display: flex;
-      gap: 12px;
-      margin-top: 24px;
-    }
+  .likert-btn.selected .radio-circle {
+    border-color: var(--primary);
+  }
 
-    /* Results Screen */
-    .result-hero {
-      text-align: center;
-      padding: 20px 0 28px;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 24px;
-    }
+  .likert-btn.selected .radio-circle::after {
+    content: "";
+    width: 8px;
+    height: 8px;
+    background: var(--primary);
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 
-    .score-circle {
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      margin: 0 auto 18px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background: radial-gradient(circle at top, #1b2d3b, #0e171e);
-      border: 4px solid var(--primary);
-      box-shadow: 0 0 28px rgba(0, 212, 182, 0.25);
-    }
+  .nav-buttons {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
 
-    .score-value {
-      font-size: 2.4rem;
-      font-weight: 800;
-      color: #ffffff;
-      line-height: 1;
-    }
+  .nav-buttons .btn-primary {
+    flex: 2;
+  }
 
-    .score-max {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      margin-top: 4px;
-    }
+  .nav-buttons .btn-secondary {
+    flex: 1;
+  }
 
-    .class-badge {
-      display: inline-block;
-      padding: 6px 16px;
-      border-radius: 99px;
-      font-weight: 700;
-      font-size: 0.95rem;
-      margin-bottom: 12px;
-      background: rgba(0, 212, 182, 0.15);
-      color: var(--primary);
-      border: 1px solid rgba(0, 212, 182, 0.35);
-    }
+  /* Result Styles */
+  .result-header {
+    text-align: center;
+    padding: 1rem 0 2rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 1.75rem;
+  }
 
-    .class-desc {
-      color: var(--text-muted);
-      max-width: 560px;
-      margin: 0 auto;
-      font-size: 0.95rem;
-    }
+  .score-ring {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    margin: 0 auto 1.25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: conic-gradient(var(--primary) calc(var(--pct) * 1%), var(--bg) 0);
+    position: relative;
+  }
 
-    .scale-legend {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 6px;
-      margin: 22px 0;
-    }
+  .score-ring::before {
+    content: "";
+    position: absolute;
+    width: 136px;
+    height: 136px;
+    background: var(--card);
+    border-radius: 50%;
+  }
 
-    @media (max-width: 640px) {
-      .scale-legend {
-        grid-template-columns: 1fr;
-      }
-    }
+  .score-inner {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+  }
 
-    .legend-item {
-      background: var(--surface-alt);
-      border: 1px solid var(--border);
-      padding: 10px 8px;
-      border-radius: 8px;
-      text-align: center;
-      font-size: 0.78rem;
-      opacity: 0.55;
-    }
+  .score-number {
+    font-size: 2.35rem;
+    font-weight: 800;
+    color: var(--text);
+    line-height: 1.1;
+  }
 
-    .legend-item.active {
-      opacity: 1;
-      border-color: var(--primary);
-      background: rgba(0, 212, 182, 0.1);
-    }
+  .score-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: 600;
+  }
 
-    .legend-item strong {
-      display: block;
-      color: var(--text);
-      font-size: 0.85rem;
-    }
+  .class-pill {
+    display: inline-block;
+    padding: 0.45rem 1.2rem;
+    border-radius: 999px;
+    font-weight: 800;
+    font-size: 0.95rem;
+    letter-spacing: 0.03em;
+    margin-bottom: 0.75rem;
+    background: rgba(56, 189, 248, 0.15);
+    color: var(--primary);
+    border: 1px solid rgba(56, 189, 248, 0.4);
+  }
 
-    .breakdown-list {
-      margin-top: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      max-height: 380px;
-      overflow-y: auto;
-      padding-right: 6px;
-    }
+  .result-title {
+    font-size: 1.6rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+  }
 
-    .breakdown-item {
-      background: var(--surface-alt);
-      padding: 12px 16px;
-      border-radius: 10px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      font-size: 0.88rem;
-    }
+  .result-desc {
+    color: var(--text-muted);
+    max-width: 540px;
+    margin: 0 auto;
+    font-size: 0.95rem;
+  }
 
-    .breakdown-meta {
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      margin-top: 3px;
-    }
+  .classes-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
 
-    .pts-pill {
-      font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 8px;
-      background: rgba(255, 255, 255, 0.06);
-      white-space: nowrap;
-      color: var(--primary);
+  @media (max-width: 640px) {
+    .classes-grid {
+      grid-template-columns: 1fr;
     }
+  }
 
-    .hidden {
-      display: none !important;
-    }
-  </style>
+  .class-box {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.75rem 0.5rem;
+    text-align: center;
+    opacity: 0.5;
+    transition: all 0.2s;
+  }
+
+  .class-box.active {
+    opacity: 1;
+    border-color: var(--primary);
+    background: rgba(56, 189, 248, 0.1);
+    transform: translateY(-2px);
+  }
+
+  .class-box .c-name {
+    font-weight: 800;
+    font-size: 0.85rem;
+    color: var(--text);
+  }
+
+  .class-box .c-range {
+    font-size: 0.75rem;
+    color: var(--primary);
+    font-weight: 600;
+    margin: 0.15rem 0;
+  }
+
+  .class-box .c-sub {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+  }
+
+  .breakdown-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .breakdown-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 0.25rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .breakdown-row {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.85rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .breakdown-q {
+    font-size: 0.88rem;
+    font-weight: 500;
+  }
+
+  .breakdown-ans {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-top: 0.2rem;
+  }
+
+  .breakdown-score {
+    font-weight: 700;
+    font-size: 0.88rem;
+    color: var(--primary);
+    white-space: nowrap;
+  }
+
+  .hidden {
+    display: none !important;
+  }
+</style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>Ne Kadar Yiğit Doğan'sın?</h1>
-      <p>22 Maddelik Kişilik, Alışkanlık ve Zihin Yapısı Benzerlik Ölçeği</p>
-    </header>
 
-    <!-- START SCREEN -->
-    <section id="start-screen" class="card">
-      <div class="warning-box">
-        <h3>⚠️ Başlamadan Önce Önemli Uyarı</h3>
+<div class="container">
+  <header>
+    <h1>Ne Kadar Yiğit Doğan'sın?</h1>
+    <p class="subtitle">22 Soruluk Kişilik ve Benzerlik Ölçeği</p>
+  </header>
+
+  <!-- GİRİŞ EKRANI -->
+  <div id="intro-view" class="card">
+    <div class="honesty-alert">
+      <div class="honesty-icon">⚠️</div>
+      <div class="honesty-text">
+        <h3>Başlamadan Önce: Tamamen Dürüst Cevaplayın!</h3>
         <p>
-          Bu testteki ifadeleri <strong>olmak istediğiniz kişiye göre değil, gerçekten olduğunuz kişiye göre</strong> yanıtlayın.
-          Özellikle dürüstlük ve ruh hali gibi maddelerde kendinizi kandırmadan, ilk içgüdünüzle ve tamamen dürüstçe seçim yapmanız en doğru benzerlik sınıfını verecektir.
+          Bu testte "olmak istediğiniz" veya "kulağa hoş gelen" seçenekleri değil, <strong>gerçekte kendinizi nasıl tanımladığınızı</strong> işaretleyin. İlk içgüdünüzle ve kendinize karşı dürüst olarak verdiğiniz yanıtlar en doğru benzerlik sınıfını verecektir.
         </p>
       </div>
+    </div>
 
-      <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 12px;">Çözüm görünümünü seçin:</p>
-      <div class="mode-selector">
-        <button type="button" class="mode-btn active" id="mode-single" onclick="selectMode('single')">
-          <strong>Tek Tek Kart Görünümü</strong>
-          <span>Her soruya odaklanarak adım adım ilerle</span>
-        </button>
-        <button type="button" class="mode-btn" id="mode-all" onclick="selectMode('all')">
-          <strong>Tüm Sorular Liste</strong>
-          <span>22 sorunun tamamını tek sayfada gör ve işaretle</span>
-        </button>
-      </div>
+    <div style="margin-bottom: 0.65rem; font-size: 0.9rem; color: var(--text-muted); font-weight: 600;">
+      Çözüm Modunu Seçin:
+    </div>
+    <div class="mode-switch">
+      <button type="button" class="mode-btn active" id="btn-mode-step" onclick="setMode('step')">
+        Kart Kart İlerle (Tek Soru)
+      </button>
+      <button type="button" class="mode-btn" id="btn-mode-list" onclick="setMode('list')">
+        Tüm Soruları Tek Sayfada Gör
+      </button>
+    </div>
 
-      <button type="button" class="btn" onclick="startQuiz()">Teste Başla (22 Soru)</button>
-    </section>
-
-    <!-- QUIZ SCREEN -->
-    <section id="quiz-screen" class="card hidden">
-      <div class="progress-wrapper">
-        <div class="progress-info">
-          <span id="progress-label">Soru 1 / 22</span>
-          <span id="progress-percent">%0 Tamamlandı</span>
-        </div>
-        <div class="progress-bar">
-          <div class="progress-fill" id="progress-fill"></div>
-        </div>
-      </div>
-
-      <div id="questions-container"></div>
-
-      <div class="nav-actions" id="single-nav">
-        <button type="button" class="btn btn-secondary" id="prev-btn" onclick="prevQuestion()">← Önceki</button>
-        <button type="button" class="btn" id="next-btn" onclick="nextQuestion()">Sonraki →</button>
-      </div>
-
-      <div class="nav-actions hidden" id="all-nav">
-        <button type="button" class="btn" id="submit-all-btn" onclick="finishQuiz()">Testi Bitir ve Sonucu Gör</button>
-      </div>
-    </section>
-
-    <!-- RESULT SCREEN -->
-    <section id="result-screen" class="card hidden">
-      <div class="result-hero">
-        <div class="score-circle">
-          <span class="score-value" id="final-score">0</span>
-          <span class="score-max">/ 100 Puan</span>
-        </div>
-        <div class="class-badge" id="final-class">Class 1</div>
-        <h2 id="final-title" style="margin-bottom: 8px;">Hiç Benzer Değil</h2>
-        <p class="class-desc" id="final-desc"></p>
-      </div>
-
-      <div class="scale-legend" id="scale-legend">
-        <div class="legend-item" data-class="1"><strong>Class 1</strong>≤ 33</div>
-        <div class="legend-item" data-class="2"><strong>Class 2</strong>33 – 50</div>
-        <div class="legend-item" data-class="3A"><strong>Class 3A</strong>50 – 67</div>
-        <div class="legend-item" data-class="3B"><strong>Class 3B</strong>67 – 80</div>
-        <div class="legend-item" data-class="4"><strong>Class 4</strong>≥ 80</div>
-      </div>
-
-      <h3 style="font-size: 1rem; margin-top: 24px; margin-bottom: 8px;">Soru Bazlı Puan Dökümü (Her Soru Maks. 4,55 Puan)</h3>
-      <div class="breakdown-list" id="breakdown-list"></div>
-
-      <div class="nav-actions">
-        <button type="button" class="btn btn-secondary" onclick="resetQuiz()">Testi Yeniden Çöz</button>
-      </div>
-    </section>
+    <button type="button" class="btn-primary" onclick="startTest()">Teste Başla</button>
   </div>
 
-  <script>
-    const rawQuestions = [
-      // Pozitif Puanlananlar (11 Madde)
-      { text: "Meraklıyım ve rastgele konuları araştırmayı severim.", type: "positive" },
-      { text: "Kendi başıma vakit geçirmeyi ve bir şeyler yapmayı severim.", type: "positive" },
-      { text: "Dışarıdan özgüvenli görünürüm ama utangaç hissedebilirim.", type: "positive" },
-      { text: "Farklı konular arasında bağlantı kurarım.", type: "positive" },
-      { text: "Geçmiş anılarımı çok detaylı hatırlayabilirim.", type: "positive" },
-      { text: "Farklı ülkeleri, kültürleri, yeni yemekleri deneyimlemeyi severim.", type: "positive" },
-      { text: "Teknoloji ve AI’da çok yetenekliyim.", type: "positive" },
-      { text: "Buzlu kahveyi severim ve genelde şekersiz içerim.", type: "positive" },
-      { text: "Grafik tasarım ve fotoğrafçılığa meraklıyım.", type: "positive" },
-      { text: "Elektronik ve hareketli müzik dinlemeyi çok severim.", type: "positive" },
-      { text: "Ruh halim genel olarak değişken olabiliyor.", type: "positive" },
+  <!-- TEST EKRANI -->
+  <div id="quiz-view" class="card hidden">
+    <div class="progress-container">
+      <div class="progress-header">
+        <span id="progress-text">Soru 1 / 22</span>
+        <span id="progress-pct">%0</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+    </div>
 
-      // Negatif (Ters) Puanlananlar (11 Madde)
-      { text: "Hiçbir şeyi kafaya takmam, tamamen anın tadını çıkarırım.", type: "negative" },
-      { text: "Kolayca karar verip kendimi tek bir şeye verebilirim.", type: "negative" },
-      { text: "Planlı ve düzenli çalışırım.", type: "negative" },
-      { text: "Gelenekçi ve muhafazakar bir insanım.", type: "negative" },
-      { text: "Sosyal olarak aktif birisi değilim, öğrenci topluluklarını çok umursamam.", type: "negative" },
-      { text: "Sohbetlerde çok konuşmam ama çok iyi dinlerim.", type: "negative" },
-      { text: "Nörobilim, psikoloji, psikiyatri benim ilgimi çekmez.", type: "negative" },
-      { text: "Mükemmeliyetçi ve kendini yargılayan biri değilim.", type: "negative" },
-      { text: "Genel olarak enerjim düşüktür.", type: "negative" },
-      { text: "Ciddi bir karaktere sahip değilim.", type: "negative" },
-      { text: "Genel olarak dürüst birisi değilim.", type: "negative" }
-    ];
+    <div id="questions-mount"></div>
 
-    const likertLabels = [
-      "Hiç katılmıyorum",
-      "Kısmen katılmıyorum",
-      "Nötr",
-      "Kısmen katılıyorum",
-      "Tamamen katılıyorum"
-    ];
+    <div id="step-controls" class="nav-buttons">
+      <button type="button" class="btn-secondary" id="prev-btn" onclick="goPrev()">← Geri</button>
+      <button type="button" class="btn-primary" id="next-btn" onclick="goNext()">İleri →</button>
+    </div>
 
-    // 22 soru * (100/22) = 100 puan
-    const MAX_PER_Q = 100 / rawQuestions.length;
+    <div id="list-controls" class="nav-buttons hidden">
+      <button type="button" class="btn-primary" id="finish-list-btn" onclick="showResults()">Sonucu Hesapla</button>
+    </div>
+  </div>
 
-    let questions = [];
-    let answers = {};
-    let viewMode = "single";
-    let currentIdx = 0;
+  <!-- SONUÇ EKRANI -->
+  <div id="result-view" class="card hidden">
+    <div class="result-header">
+      <div class="score-ring" id="score-ring" style="--pct: 0;">
+        <div class="score-inner">
+          <div class="score-number" id="res-score">0</div>
+          <div class="score-label">/ 100 PUAN</div>
+        </div>
+      </div>
+      <div class="class-pill" id="res-class-badge">CLASS 1</div>
+      <h2 class="result-title" id="res-class-title">Hiç Benzer Değil</h2>
+      <p class="result-desc" id="res-class-desc"></p>
+    </div>
 
-    function selectMode(mode) {
-      viewMode = mode;
-      document.getElementById("mode-single").classList.toggle("active", mode === "single");
-      document.getElementById("mode-all").classList.toggle("active", mode === "all");
+    <div class="classes-grid" id="classes-grid">
+      <div class="class-box" data-id="1">
+        <div class="c-name">Class 1</div>
+        <div class="c-range">33 ve altı</div>
+        <div class="c-sub">Hiç benzer değil</div>
+      </div>
+      <div class="class-box" data-id="2">
+        <div class="c-name">Class 2</div>
+        <div class="c-range">33 – 50</div>
+        <div class="c-sub">Genel olarak farklı</div>
+      </div>
+      <div class="class-box" data-id="3A">
+        <div class="c-name">Class 3A</div>
+        <div class="c-range">50 – 67</div>
+        <div class="c-sub">Biraz benzer</div>
+      </div>
+      <div class="class-box" data-id="3B">
+        <div class="c-name">Class 3B</div>
+        <div class="c-range">67 – 80</div>
+        <div class="c-sub">Oldukça benzer</div>
+      </div>
+      <div class="class-box" data-id="4">
+        <div class="c-name">Class 4</div>
+        <div class="c-range">80 ve üstü</div>
+        <div class="c-sub">Tamamen benzer</div>
+      </div>
+    </div>
+
+    <div class="breakdown-title">
+      <span>Soru Bazlı Puan Dökümü</span>
+      <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 500;">Maks. 4,55 puan / soru</span>
+    </div>
+    <div class="breakdown-list" id="breakdown-list"></div>
+
+    <button type="button" class="btn-secondary" style="width: 100%;" onclick="restartTest()">Testi Tekrar Çöz</button>
+  </div>
+</div>
+
+<script>
+  const QUESTIONS_DATA = [
+    // Pozitif Puanlananlar (11 Madde)
+    { text: "Meraklıyım ve rastgele konuları araştırmayı severim", polarity: "pos" },
+    { text: "Kendi başıma vakit geçirmeyi ve bir şeyler yapmayı severim", polarity: "pos" },
+    { text: "Dışarıdan özgüvenli görünürüm ama utangaç hissedebilirim", polarity: "pos" },
+    { text: "Farklı konular arasında bağlantı kurarım", polarity: "pos" },
+    { text: "Geçmiş anılarımı çok detaylı hatırlayabilirim", polarity: "pos" },
+    { text: "Farklı ülkeleri, kültürleri, yeni yemekleri deneyimlemeyi severim", polarity: "pos" },
+    { text: "Teknoloji ve AI’da çok yetenekliyim", polarity: "pos" },
+    { text: "Buzlu kahveyi severim ve genelde şekersiz içerim", polarity: "pos" },
+    { text: "Grafik tasarım ve fotoğrafçılığa meraklıyım", polarity: "pos" },
+    { text: "Elektronik ve hareketli müzik dinlemeyi çok severim", polarity: "pos" },
+    { text: "Ruh halim genel olarak değişken olabiliyor", polarity: "pos" },
+
+    // Negatif Puanlananlar (11 Madde)
+    { text: "Hiçbir şeyi kafaya takmam, tamamen anın tadını çıkarırım", polarity: "neg" },
+    { text: "Kolayca karar verip kendimi tek bir şeye verebilirim", polarity: "neg" },
+    { text: "Planlı ve düzenli çalışırım", polarity: "neg" },
+    { text: "Gelenekçi ve muhafazakar bir insanım", polarity: "neg" },
+    { text: "Sosyal olarak aktif birisi değilim, öğrenci topluluklarını çok umursamam", polarity: "neg" },
+    { text: "Sohbetlerde çok konuşmam ama çok iyi dinlerim", polarity: "neg" },
+    { text: "Nörobilim, psikoloji, psikiyatri benim ilgimi çekmez", polarity: "neg" },
+    { text: "Mükemmeliyetçi ve kendini yargılayan biri değilim", polarity: "neg" },
+    { text: "Genel olarak enerjim düşüktür", polarity: "neg" },
+    { text: "Ciddi bir karaktere sahip değilim", polarity: "neg" },
+    { text: "Genel olarak dürüst birisi değilim", polarity: "neg" }
+  ];
+
+  const OPTIONS = [
+    "Hiç katılmıyorum",
+    "Kısmen katılmıyorum",
+    "Nötr",
+    "Kısmen katılıyorum",
+    "Tamamen katılıyorum"
+  ];
+
+  const MAX_POINTS_PER_QUESTION = 100 / QUESTIONS_DATA.length; // 100 / 22 = 4.545454...
+
+  let mode = "step";
+  let shuffledQuestions = [];
+  let userAnswers = {};
+  let currentStep = 0;
+
+  function setMode(selectedMode) {
+    mode = selectedMode;
+    document.getElementById("btn-mode-step").classList.toggle("active", mode === "step");
+    document.getElementById("btn-mode-list").classList.toggle("active", mode === "list");
+  }
+
+  function shuffle(array) {
+    const arr = array.slice();
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
     }
+    return arr;
+  }
 
-    function shuffleArray(arr) {
-      const copy = [...arr];
-      for (let i = copy.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [copy[i], copy[j]] = [copy[j], copy[i]];
-      }
-      return copy;
-    }
+  function startTest() {
+    shuffledQuestions = shuffle(QUESTIONS_DATA.map((q, index) => ({ ...q, uid: index })));
+    userAnswers = {};
+    currentStep = 0;
 
-    function startQuiz() {
-      questions = shuffleArray(rawQuestions.map((q, idx) => ({ ...q, id: idx })));
-      answers = {};
-      currentIdx = 0;
+    document.getElementById("intro-view").classList.add("hidden");
+    document.getElementById("result-view").classList.add("hidden");
+    document.getElementById("quiz-view").classList.remove("hidden");
 
-      document.getElementById("start-screen").classList.add("hidden");
-      document.getElementById("result-screen").classList.add("hidden");
-      document.getElementById("quiz-screen").classList.remove("hidden");
+    render();
+  }
 
-      renderQuiz();
-    }
+  function getPoints(question, optionIndex) {
+    const ratio = question.polarity === "pos" ? optionIndex / 4 : (4 - optionIndex) / 4;
+    return ratio * MAX_POINTS_PER_QUESTION;
+  }
 
-    function calculateQuestionScore(q, choiceIndex) {
-      // choiceIndex: 0 (Hiç) .. 4 (Tamamen)
-      const factor = q.type === "positive" ? choiceIndex / 4 : (4 - choiceIndex) / 4;
-      return factor * MAX_PER_Q;
-    }
+  function render() {
+    const mount = document.getElementById("questions-mount");
+    mount.innerHTML = "";
 
-    function renderQuiz() {
-      const container = document.getElementById("questions-container");
-      container.innerHTML = "";
+    const total = shuffledQuestions.length;
+    const answered = Object.keys(userAnswers).length;
+    const percent = Math.round((answered / total) * 100);
 
-      const answeredCount = Object.keys(answers).length;
-      const pct = Math.round((answeredCount / questions.length) * 100);
-      document.getElementById("progress-fill").style.width = `${pct}%`;
-      document.getElementById("progress-percent").textContent = `%${pct} Tamamlandı`;
+    document.getElementById("progress-fill").style.width = percent + "%";
+    document.getElementById("progress-pct").textContent = "%" + percent;
 
-      if (viewMode === "single") {
-        document.getElementById("single-nav").classList.remove("hidden");
-        document.getElementById("all-nav").classList.add("hidden");
-        document.getElementById("progress-label").textContent = `Soru ${currentIdx + 1} / ${questions.length}`;
+    if (mode === "step") {
+      document.getElementById("step-controls").classList.remove("hidden");
+      document.getElementById("list-controls").classList.add("hidden");
+      document.getElementById("progress-text").textContent = `Soru ${currentStep + 1} / ${total}`;
 
-        const q = questions[currentIdx];
-        container.appendChild(createQuestionElement(q, currentIdx));
+      const q = shuffledQuestions[currentStep];
+      mount.appendChild(buildQuestionCard(q, currentStep));
 
-        document.getElementById("prev-btn").disabled = currentIdx === 0;
-        const nextBtn = document.getElementById("next-btn");
-        nextBtn.disabled = answers[q.id] === undefined;
-        nextBtn.textContent = currentIdx === questions.length - 1 ? "Testi Bitir ✓" : "Sonraki →";
-      } else {
-        document.getElementById("single-nav").classList.add("hidden");
-        document.getElementById("all-nav").classList.remove("hidden");
-        document.getElementById("progress-label").textContent = `${answeredCount} / ${questions.length} Soru Yanıtlandı`;
+      document.getElementById("prev-btn").disabled = currentStep === 0;
+      const nextBtn = document.getElementById("next-btn");
+      nextBtn.disabled = userAnswers[q.uid] === undefined;
+      nextBtn.textContent = currentStep === total - 1 ? "Testi Bitir ✓" : "İleri →";
+    } else {
+      document.getElementById("step-controls").classList.add("hidden");
+      document.getElementById("list-controls").classList.remove("hidden");
+      document.getElementById("progress-text").textContent = `${answered} / ${total} Soru Cevaplandı`;
 
-        questions.forEach((q, idx) => {
-          container.appendChild(createQuestionElement(q, idx));
-        });
-
-        document.getElementById("submit-all-btn").disabled = answeredCount < questions.length;
-      }
-    }
-
-    function createQuestionElement(q, displayIndex) {
-      const wrapper = document.createElement("div");
-      wrapper.className = "question-block";
-
-      const header = document.createElement("div");
-      header.className = "q-header";
-      header.innerHTML = `<span class="q-num">Soru ${displayIndex + 1}</span>`;
-
-      const text = document.createElement("div");
-      text.className = "q-text";
-      text.textContent = q.text;
-
-      const optionsGrid = document.createElement("div");
-      optionsGrid.className = "likert-options";
-
-      likertLabels.forEach((label, choiceIdx) => {
-        const opt = document.createElement("div");
-        opt.className = "likert-option" + (answers[q.id] === choiceIdx ? " selected" : "");
-        opt.innerHTML = `<span class="dot"></span><span>${label}</span>`;
-        opt.onclick = () => {
-          answers[q.id] = choiceIdx;
-          renderQuiz();
-        };
-        optionsGrid.appendChild(opt);
+      shuffledQuestions.forEach((q, idx) => {
+        mount.appendChild(buildQuestionCard(q, idx));
       });
 
-      wrapper.appendChild(header);
-      wrapper.appendChild(text);
-      wrapper.appendChild(optionsGrid);
-      return wrapper;
+      document.getElementById("finish-list-btn").disabled = answered < total;
     }
+  }
 
-    function prevQuestion() {
-      if (currentIdx > 0) {
-        currentIdx--;
-        renderQuiz();
-      }
+  function buildQuestionCard(q, index) {
+    const div = document.createElement("div");
+    div.className = "question-item";
+
+    const badge = document.createElement("div");
+    badge.className = "q-badge";
+    badge.textContent = `Soru ${index + 1}`;
+
+    const title = document.createElement("div");
+    title.className = "q-title";
+    title.textContent = q.text;
+
+    const scale = document.createElement("div");
+    scale.className = "likert-scale";
+
+    OPTIONS.forEach((optLabel, optIdx) => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "likert-btn" + (userAnswers[q.uid] === optIdx ? " selected" : "");
+      btn.innerHTML = `<span class="radio-circle"></span><span>${optLabel}</span>`;
+      btn.onclick = () => {
+        userAnswers[q.uid] = optIdx;
+        render();
+      };
+      scale.appendChild(btn);
+    });
+
+    div.appendChild(badge);
+    div.appendChild(title);
+    div.appendChild(scale);
+    return div;
+  }
+
+  function goPrev() {
+    if (currentStep > 0) {
+      currentStep--;
+      render();
     }
+  }
 
-    function nextQuestion() {
-      if (currentIdx < questions.length - 1) {
-        currentIdx++;
-        renderQuiz();
-      } else {
-        finishQuiz();
-      }
+  function goNext() {
+    if (currentStep < shuffledQuestions.length - 1) {
+      currentStep++;
+      render();
+    } else {
+      showResults();
     }
+  }
 
-    function getClassification(score) {
-      if (score <= 33) {
-        return {
-          code: "1",
-          badge: "Class 1",
-          title: "Hiç Benzer Değil",
-          desc: "Düşünce yapınız, enerji ritminiz ve ilgi alanlarınız Yiğit Doğan profilinden oldukça farklı bir eksende ilerliyor."
-        };
-      } else if (score <= 50) {
-        return {
-          code: "2",
-          badge: "Class 2",
-          title: "Genel Olarak Farklı",
-          desc: "Belirli noktalarda kesişseniz de temel karakter dinamikleriniz ve öncelikleriniz genel olarak ayrışıyor."
-        };
-      } else if (score <= 67) {
-        return {
-          code: "3A",
-          badge: "Class 3A",
-          title: "Biraz Benzer",
-          desc: "Merak, düşünce tarzı veya alışkanlıklar bakımından belirgin ortak zeminleriniz var; ancak bazı temel konularda farklılaşıyorsunuz."
-        };
-      } else if (score < 80) {
-        return {
-          code: "3B",
-          badge: "Class 3B",
-          title: "Oldukça Benzer",
-          desc: "Zihin yapınız, ilgi alanlarınız, içe-dışa dönüklük dengeniz ve karakteristik özellikleriniz Yiğit Doğan ile yüksek oranda örtüşüyor."
-        };
-      } else {
-        return {
-          code: "4",
-          badge: "Class 4",
-          title: "Tamamen Benzer",
-          desc: "Neredeyse birebir aynı zihinsel frekans, alışkanlıklar ve karakter profili! Ya Yiğit Doğan'sınız ya da ikizi."
-        };
-      }
+  function classifyScore(score) {
+    if (score <= 33) {
+      return {
+        id: "1",
+        badge: "CLASS 1",
+        title: "Hiç Benzer Değil",
+        desc: "Karakter özellikleriniz, ilgi alanlarınız ve düşünce yapınız Yiğit Doğan'dan tamamen farklı bir doğrultuda ilerliyor."
+      };
     }
-
-    function finishQuiz() {
-      let totalScore = 0;
-      const breakdownEl = document.getElementById("breakdown-list");
-      breakdownEl.innerHTML = "";
-
-      questions.forEach((q, idx) => {
-        const choice = answers[q.id];
-        const pts = calculateQuestionScore(q, choice);
-        totalScore += pts;
-
-        const item = document.createElement("div");
-        item.className = "breakdown-item";
-        item.innerHTML = `
-          <div>
-            <div><strong>${idx + 1}.</strong> ${q.text}</div>
-            <div class="breakdown-meta">Yanıtınız: ${likertLabels[choice]} (${q.type === "positive" ? "Pozitif" : "Ters"} Madde)</div>
-          </div>
-          <div class="pts-pill">+${pts.toFixed(2).replace('.', ',')} p</div>
-        `;
-        breakdownEl.appendChild(item);
-      });
-
-      const roundedScore = Math.min(100, Math.max(0, Number(totalScore.toFixed(2))));
-      const cls = getClassification(roundedScore);
-
-      document.getElementById("final-score").textContent = roundedScore.toFixed(2).replace('.', ',');
-      document.getElementById("final-class").textContent = cls.badge;
-      document.getElementById("final-title").textContent = cls.title;
-      document.getElementById("final-desc").textContent = cls.desc;
-
-      document.querySelectorAll(".legend-item").forEach(el => {
-        el.classList.toggle("active", el.dataset.class === cls.code);
-      });
-
-      document.getElementById("quiz-screen").classList.add("hidden");
-      document.getElementById("result-screen").classList.remove("hidden");
+    if (score <= 50) {
+      return {
+        id: "2",
+        badge: "CLASS 2",
+        title: "Genel Olarak Farklı",
+        desc: "Tek tük ortak noktalarınız bulunsa da genel kişilik yapınız ve öncelikleriniz bakımından ayrışıyorsunuz."
+      };
     }
-
-    function resetQuiz() {
-      document.getElementById("result-screen").classList.add("hidden");
-      document.getElementById("start-screen").classList.remove("hidden");
+    if (score <= 67) {
+      return {
+        id: "3A",
+        badge: "CLASS 3A",
+        title: "Biraz Benzer",
+        desc: "Merak duygusu, alışkanlıklar veya bakış açısı yönünden belirgin kesişimleriniz var; ancak bazı temel noktalarda farklılaşıyorsunuz."
+      };
     }
-  </script>
+    if (score < 80) {
+      return {
+        id: "3B",
+        badge: "CLASS 3B",
+        title: "Oldukça Benzer",
+        desc: "Zihin yapınız, ilgi alanlarınız, içe-dışa dönüklük dengeniz ve kişilik özellikleriniz Yiğit Doğan ile güçlü bir uyum gösteriyor."
+      };
+    }
+    return {
+      id: "4",
+      badge: "CLASS 4",
+      title: "Tamamen Benzer",
+      desc: "Neredeyse birebir aynı kafa yapısı, alışkanlıklar ve karakter profili! Ya Yiğit Doğan'sınız ya da ruh ikizi."
+    };
+  }
+
+  function showResults() {
+    let rawTotal = 0;
+    const listEl = document.getElementById("breakdown-list");
+    listEl.innerHTML = "";
+
+    shuffledQuestions.forEach((q, idx) => {
+      const ansIdx = userAnswers[q.uid];
+      const pts = getPoints(q, ansIdx);
+      rawTotal += pts;
+
+      const row = document.createElement("div");
+      row.className = "breakdown-row";
+      row.innerHTML = `
+        <div>
+          <div class="breakdown-q">${idx + 1}. ${q.text}</div>
+          <div class="breakdown-ans">Yanıt: ${OPTIONS[ansIdx]}</div>
+        </div>
+        <div class="breakdown-score">+${pts.toFixed(2).replace(".", ",")} p</div>
+      `;
+      listEl.appendChild(row);
+    });
+
+    const finalScore = Math.min(100, Math.max(0, Number(rawTotal.toFixed(2))));
+    const info = classifyScore(finalScore);
+
+    document.getElementById("score-ring").style.setProperty("--pct", finalScore);
+    document.getElementById("res-score").textContent = finalScore.toFixed(2).replace(".", ",");
+    document.getElementById("res-class-badge").textContent = info.badge;
+    document.getElementById("res-class-title").textContent = info.title;
+    document.getElementById("res-class-desc").textContent = info.desc;
+
+    document.querySelectorAll(".class-box").forEach(box => {
+      box.classList.toggle("active", box.dataset.id === info.id);
+    });
+
+    document.getElementById("quiz-view").classList.add("hidden");
+    document.getElementById("result-view").classList.remove("hidden");
+  }
+
+  function restartTest() {
+    document.getElementById("result-view").classList.add("hidden");
+    document.getElementById("intro-view").classList.remove("hidden");
+  }
+</script>
+
 </body>
 </html>
